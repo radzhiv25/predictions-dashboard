@@ -56,7 +56,7 @@ export function WalletFundingDialog({ onAddFunds }: WalletFundingDialogProps) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button size="sm" variant="outline" className="transition-transform active:scale-95">
+        <Button size="sm" variant="outline" className="transition-transform active:scale-95 dark:border-white/20 dark:bg-black dark:text-white">
           <PlusCircle className="size-4" />
           Add Funds
         </Button>
@@ -70,7 +70,7 @@ export function WalletFundingDialog({ onAddFunds }: WalletFundingDialogProps) {
         </DialogHeader>
 
         <div className="space-y-4">
-          <div className="relative grid grid-cols-2 gap-2 rounded-lg bg-slate-100 p-1">
+          <div className="relative grid grid-cols-2 gap-2 rounded-lg bg-slate-100 p-1 dark:bg-white/10">
             <div
               className={`pointer-events-none absolute h-[calc(50%-0.5rem)] w-[calc(50%-0.5rem)] rounded-md bg-slate-900 shadow-sm transition-all duration-300 ease-out ${
                 selectedPresetIndex === -1
@@ -92,7 +92,7 @@ export function WalletFundingDialog({ onAddFunds }: WalletFundingDialogProps) {
                 className={`relative z-10 rounded-md border px-3 py-2 text-sm font-medium transition-colors duration-200 ${
                   parsedAmount === amount
                     ? "border-transparent bg-transparent text-white"
-                    : "border-slate-200 bg-white text-slate-800 hover:bg-slate-50"
+                    : "border-slate-200 bg-white text-slate-800 hover:bg-slate-50 dark:border-white/20 dark:bg-black dark:text-gray-300 dark:hover:bg-white/5"
                 }`}
               >
                 {formatCurrency(amount)}
@@ -101,11 +101,11 @@ export function WalletFundingDialog({ onAddFunds }: WalletFundingDialogProps) {
           </div>
 
           <div className="space-y-2">
-            <label htmlFor="fund-amount" className="text-sm font-medium text-slate-700">
+            <label htmlFor="fund-amount" className="text-sm font-medium text-slate-700 dark:text-gray-300">
               Custom amount
             </label>
             <div className="relative">
-              <DollarSign className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-slate-500" />
+              <DollarSign className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-slate-500 dark:text-gray-500" />
               <Input
                 id="fund-amount"
                 type="number"

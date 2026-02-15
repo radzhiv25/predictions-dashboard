@@ -25,13 +25,13 @@ function calculatePnl(position: Position, currentPrice: number): number {
 export function PositionsView({ positions, currentPrices, onNavigateDashboard }: PositionsViewProps) {
   if (positions.length === 0) {
     return (
-      <Card className="animate-fade-up border-slate-200">
+      <Card className="animate-fade-up border-slate-200 dark:border-white/20 dark:bg-black/70">
         <CardContent className="py-12 text-center">
-          <p className="text-lg font-medium text-slate-900">No positions yet</p>
-          <p className="mt-2 text-sm text-slate-600">
+          <p className="text-lg font-medium text-slate-900 dark:text-white">No positions yet</p>
+          <p className="mt-2 text-sm text-slate-600 dark:text-gray-400">
             You have not bought any contracts. Start trading from Dashboard.
           </p>
-          <button className="mt-4 text-sm font-medium text-blue-700 underline" onClick={onNavigateDashboard}>
+          <button className="mt-4 text-sm font-medium text-slate-700 underline dark:text-gray-300" onClick={onNavigateDashboard}>
             Go to Dashboard
           </button>
         </CardContent>
@@ -69,30 +69,30 @@ export function PositionsView({ positions, currentPrices, onNavigateDashboard }:
   return (
     <div className="space-y-6">
       <section className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-        <Card className="animate-fade-up border-slate-200 py-0">
+        <Card className="animate-fade-up border-slate-200 py-0 dark:border-white/20 dark:bg-black/70">
           <CardContent className="py-4">
-            <p className="text-xs uppercase tracking-wide text-slate-500">Total invested</p>
-            <p className="text-xl font-semibold text-slate-900">{formatCurrency(totals.invested)}</p>
+            <p className="text-xs uppercase tracking-wide text-slate-500 dark:text-gray-500">Total invested</p>
+            <p className="text-xl font-semibold text-slate-900 dark:text-white">{formatCurrency(totals.invested)}</p>
           </CardContent>
         </Card>
-        <Card className="animate-fade-up border-slate-200 py-0">
+        <Card className="animate-fade-up border-slate-200 py-0 dark:border-white/20 dark:bg-black/70">
           <CardContent className="py-4">
-            <p className="text-xs uppercase tracking-wide text-slate-500">Mark-to-market</p>
-            <p className="text-xl font-semibold text-slate-900">{formatCurrency(totals.markValue)}</p>
+            <p className="text-xs uppercase tracking-wide text-slate-500 dark:text-gray-500">Mark-to-market</p>
+            <p className="text-xl font-semibold text-slate-900 dark:text-white">{formatCurrency(totals.markValue)}</p>
           </CardContent>
         </Card>
-        <Card className="animate-fade-up border-slate-200 py-0">
+        <Card className="animate-fade-up border-slate-200 py-0 dark:border-white/20 dark:bg-black/70">
           <CardContent className="py-4">
-            <p className="text-xs uppercase tracking-wide text-slate-500">Unrealized P&L</p>
+            <p className="text-xs uppercase tracking-wide text-slate-500 dark:text-gray-500">Unrealized P&L</p>
             <p className={`text-xl font-semibold ${totals.unrealizedPnl >= 0 ? "text-emerald-600" : "text-rose-600"}`}>
               {formatCurrency(totals.unrealizedPnl)}
             </p>
           </CardContent>
         </Card>
-        <Card className="animate-fade-up border-slate-200 py-0">
+        <Card className="animate-fade-up border-slate-200 py-0 dark:border-white/20 dark:bg-black/70">
           <CardContent className="py-4">
-            <p className="text-xs uppercase tracking-wide text-slate-500">Winning positions</p>
-            <p className="text-xl font-semibold text-slate-900">{winRate.toFixed(1)}%</p>
+            <p className="text-xs uppercase tracking-wide text-slate-500 dark:text-gray-500">Winning positions</p>
+            <p className="text-xl font-semibold text-slate-900 dark:text-white">{winRate.toFixed(1)}%</p>
           </CardContent>
         </Card>
       </section>
@@ -101,14 +101,14 @@ export function PositionsView({ positions, currentPrices, onNavigateDashboard }:
         const [, eventTitle] = groupKey.split("::");
 
         return (
-          <Card key={groupKey} className="animate-fade-up border-slate-200">
+          <Card key={groupKey} className="animate-fade-up border-slate-200 dark:border-white/20 dark:bg-black/70">
             <CardHeader>
-              <CardTitle>{eventTitle}</CardTitle>
+              <CardTitle className="dark:text-white">{eventTitle}</CardTitle>
             </CardHeader>
             <CardContent className="overflow-x-auto">
               <table className="w-full min-w-[680px] border-separate border-spacing-y-2 text-sm">
                 <thead>
-                  <tr className="text-left text-slate-500">
+                  <tr className="text-left text-slate-500 dark:text-gray-500">
                     <th className="font-medium">Market</th>
                     <th className="font-medium">Side</th>
                     <th className="font-medium">Avg Entry</th>
@@ -126,9 +126,9 @@ export function PositionsView({ positions, currentPrices, onNavigateDashboard }:
                     return (
                       <tr
                         key={position.id}
-                        className="rounded-md border bg-white transition-colors duration-200 hover:bg-slate-50"
+                        className="rounded-md border bg-white transition-colors duration-200 hover:bg-slate-50 dark:border-white/15 dark:bg-black dark:hover:bg-white/5"
                       >
-                        <td className="py-2 pr-3">{position.marketTitle}</td>
+                        <td className="py-2 pr-3 dark:text-white">{position.marketTitle}</td>
                         <td className="py-2 pr-3">{position.side}</td>
                         <td className="py-2 pr-3">{formatPercentFromPrice(position.averagePrice)}</td>
                         <td className="py-2 pr-3">{formatPercentFromPrice(currentPrice)}</td>

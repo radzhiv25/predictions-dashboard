@@ -23,7 +23,7 @@ export default function SignInPage() {
       <div className="relative w-full max-w-md rounded-2xl border bg-white p-8 shadow-sm">
         <div className="mb-6 flex items-center gap-2 text-slate-900">
           <BarChart3 className="size-5" />
-          <h1 className="text-lg font-semibold">Funded Predictions</h1>
+          <h1 className="text-lg font-semibold">Predictions Dashboard</h1>
         </div>
         <h2 className="text-2xl font-semibold text-slate-950">Sign in to continue</h2>
         <p className="mt-2 text-sm text-slate-600">

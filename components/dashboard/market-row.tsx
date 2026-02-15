@@ -42,12 +42,12 @@ export function MarketRow({ market, canTrade, onBuy }: MarketRowProps) {
 
   return (
     <div
-      className={`grid grid-cols-1 gap-3 rounded-lg border border-slate-200 bg-white p-3 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-sm md:grid-cols-[1fr_auto_auto] md:items-center ${
+      className={`grid grid-cols-1 gap-3 rounded-lg border border-slate-200 bg-white p-3 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-sm dark:border-white/15 dark:bg-black md:grid-cols-[1fr_auto_auto] md:items-center ${
         lastFilledSide === "YES" ? "ring-2 ring-emerald-200" : ""
       } ${lastFilledSide === "NO" ? "ring-2 ring-rose-200" : ""}`}
     >
       <div>
-        <p className="text-sm font-medium text-slate-950">{market.title}</p>
+        <p className="text-sm font-medium text-slate-950 dark:text-white">{market.title}</p>
         <div className="mt-2 flex flex-wrap items-center gap-2 text-xs">
           <span className="rounded-full bg-emerald-50 px-2 py-0.5 font-medium text-emerald-700">
             Yes {formatPercentFromPrice(market.price.yes)}

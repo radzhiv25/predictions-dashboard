@@ -5,7 +5,7 @@ import { AppProviders } from "@/components/providers/app-providers";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Funded Predictions Dashboard",
+  title: "Predictions Dashboard",
   description: "Prediction market dashboard with simulated trading and Google auth.",
 };
 
