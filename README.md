@@ -1,36 +1,124 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Predictions Dashboard
 
-## Getting Started
+A frontend-only prediction market dashboard built with Next.js (App Router), TypeScript, Tailwind, and NextAuth.
 
-First, run the development server:
+It fetches live event data from Polymarket, supports simulated YES/NO trades with a fake wallet, and tracks positions with unrealized P&L.
+
+## Tech Stack
+
+- Next.js 16 (App Router)
+- TypeScript (strict mode)
+- Tailwind CSS + shadcn/ui primitives
+- NextAuth.js (Google OAuth)
+- Sonner (toasts)
+- Axios/Fetch for API integration
+
+## Core Features
+
+- Dashboard tab with top 5 politics events from Polymarket
+- Event cards with market-level YES/NO prices and buy actions
+- Simulated wallet (default $1,000) with add-funds flow
+- Buy logic merges existing position by `(marketId + side)`
+- Positions tab grouped by event
+- Position metrics: average entry, quantity, total invested, current price, unrealized P&L
+- Per-user local persistence keyed to authenticated user session
+- Demo mode button (manual opt-in) for local testing without OAuth setup
+
+## Bonus Features Implemented
+
+- Responsive layout across desktop/mobile
+- Periodic live refresh of market data (every 30 seconds)
+- Search/filter in dashboard:
+  - Search by event title or market title
+  - Filter: `All Events` / `Tradable Only`
+- Clean loading and error states:
+  - Skeleton loaders
+  - Retry action on API failure
+- Dark mode support via theme toggle (Light/System/Dark)
+- Micro-interactions and animations:
+  - Sliding tab/filter indicators
+  - Buy button processing state + fill feedback
+  - Wallet value animation on updates
+  - Animated amount selector in wallet funding dialog
+
+## Project Structure
+
+- `app/`
+  - `api/auth/[...nextauth]/route.ts` - NextAuth route handler
+  - `api/events/route.ts` - server-side Polymarket proxy (avoids browser CORS)
+  - `signin/page.tsx` - sign-in screen
+- `components/`
+  - `app-shell/` - main dashboard shell, wallet dialog, theme toggle
+  - `auth/` - auth controls
+  - `dashboard/` - event and market UI
+  - `positions/` - grouped positions + analytics
+  - `providers/` - session/theme/toast providers
+- `contexts/portfolio-context.tsx` - wallet + positions state reducer and persistence
+- `lib/`
+  - `auth.ts` - NextAuth config
+  - `polymarket.ts` - normalization + client fetch helpers
+  - `constants.ts`, `format.ts`
+- `types/` - domain types for API and portfolio state
+
+## Environment Variables
+
+Create `.env.local`:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+GOOGLE_CLIENT_ID=...
+GOOGLE_CLIENT_SECRET=...
+NEXTAUTH_SECRET=...
+NEXTAUTH_URL=http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Optional (only if you want bypass):
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+NEXT_PUBLIC_BYPASS_AUTH=false
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Note: app defaults to auth-first. Demo access is available using the `Continue in Demo Mode` button on the sign-in screen.
 
-## Learn More
+## Google OAuth Setup
 
-To learn more about Next.js, take a look at the following resources:
+1. Create OAuth credentials in Google Cloud Console (`Web application`).
+2. Add redirect URI for local:
+   - `http://localhost:3000/api/auth/callback/google`
+3. Add redirect URI for deployed app:
+   - `https://<your-domain>/api/auth/callback/google`
+4. Add env vars locally and in Vercel.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Run Locally
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+npm install
+npm run dev
+```
 
-## Deploy on Vercel
+Open [http://localhost:3000](http://localhost:3000).
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Build & Lint
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+npm run lint
+npm run build
+```
+
+## Deployment (Vercel)
+
+1. Push repository to GitHub.
+2. Import into Vercel.
+3. Add required env vars in Vercel project settings.
+4. Deploy and verify Google auth callback URL is configured in Google Console.
+
+## Notes / Tradeoffs
+
+- The app uses a frontend-only persistence approach (`localStorage`) by requirement; no backend DB.
+- Market prices and position current prices are derived from the same live event snapshots.
+- Polymarket calls are proxied through `/api/events` to avoid browser CORS failures.
+
+## If I Had More Time
+
+- Add a recent fills panel and richer order-ticket interactions
+- Add per-market sparkline history and polling backoff strategy
+- Add test coverage for reducer logic and portfolio calculations
