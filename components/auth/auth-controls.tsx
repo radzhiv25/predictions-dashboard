@@ -31,7 +31,7 @@ export function AuthControls({ bypassAuth = false }: AuthControlsProps) {
 
   return (
     <div className="flex items-center gap-3">
-      <div className="flex items-center gap-2 rounded-full border bg-card px-3 py-1.5">
+      <div className="flex items-center gap-2 rounded-full border bg-card px-1 py-1">
         {session.user.image ? (
           <Image
             src={session.user.image}
