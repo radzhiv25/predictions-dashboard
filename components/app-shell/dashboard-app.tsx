@@ -279,6 +279,10 @@ function TradingContent({ isDemoMode, onExitDemoMode }: TradingContentProps) {
                 <p className="text-xs text-slate-500 dark:text-gray-500">
                   Showing {filteredEvents.length} of {events.length} events
                 </p>
+                <p className="text-xs text-slate-500 dark:text-gray-500">
+                  `All Events` shows the full top-politics feed. `Tradable Only` keeps events with at least one
+                  market priced above 0% on either side.
+                </p>
               </CardContent>
             </Card>
 
