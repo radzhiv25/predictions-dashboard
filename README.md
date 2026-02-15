@@ -110,15 +110,3 @@ npm run build
 2. Import into Vercel.
 3. Add required env vars in Vercel project settings.
 4. Deploy and verify Google auth callback URL is configured in Google Console.
-
-## Notes / Tradeoffs
-
-- The app uses a frontend-only persistence approach (`localStorage`) by requirement; no backend DB.
-- Market prices and position current prices are derived from the same live event snapshots.
-- Polymarket calls are proxied through `/api/events` to avoid browser CORS failures.
-
-## If I Had More Time
-
-- Add a recent fills panel and richer order-ticket interactions
-- Add per-market sparkline history and polling backoff strategy
-- Add test coverage for reducer logic and portfolio calculations
